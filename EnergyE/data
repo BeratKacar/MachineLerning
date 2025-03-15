@@ -1,0 +1,24 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+
+# Veri setini yükle
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/00242/ENB2012_data.xlsx"
+df = pd.read_excel(url)
+
+# Sütun isimlerini düzenleyelim
+df.columns = ["Relative_Compactness", "Surface_Area", "Wall_Area", "Roof_Area",
+              "Overall_Height", "Orientation", "Glazing_Area", "Glazing_Area_Distribution",
+              "Heating_Load", "Cooling_Load"]
+
+# Özellikler (X) ve hedef değişken (Y)
+X = df.iloc[:, :-2]  # İlk 8 sütun
+y = df["Heating_Load"]  # Isıtma yükünü tahmin edeceğiz
+
+# Veriyi eğitim ve test setine ayır
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Veriyi ölçekleme
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)

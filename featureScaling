@@ -1,0 +1,4 @@
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+
+scaler = MinMaxScaler()
+df[['A', 'B']] = scaler.fit_transform(df[['A', 'B']])

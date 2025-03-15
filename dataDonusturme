@@ -1,0 +1,4 @@
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+
+df['kategori'] = LabelEncoder().fit_transform(df['kategori'])
+df = pd.get_dummies(df, columns=['kategori'])  # One-Hot Encoding

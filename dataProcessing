@@ -1,0 +1,17 @@
+import pandas as pd
+
+# Örnek veri seti
+df = pd.DataFrame({'A': [1, 2, None, 4], 'B': [None, 5, 6, 7]})
+
+# Ortalama ile doldurma
+df['A'].fillna(df['A'].mean(), inplace=True)
+
+# Mod ile doldurma
+df['B'].fillna(df['B'].mode()[0], inplace=True)
+
+df.dropna(inplace=True)  # Eksik veri içeren satırları siler
+df.dropna(axis=1, inplace=True)  # Eksik veri içeren sütunları siler
+
+df.drop(columns=['ID'], inplace=True) #Eksik veriyi içeren sütunu silme
+
+df['Yas'] = 2025 - df['Dogum_Yili']

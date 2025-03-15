@@ -1,0 +1,15 @@
+import numpy as np
+
+Q1 = df['A'].quantile(0.25)
+Q3 = df['A'].quantile(0.75)
+IQR = Q3 - Q1
+
+# Alt ve üst sınırları belirle
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+# Aykırı değerleri filtreleme
+df = df[(df['A'] >= lower_bound) & (df['A'] <= upper_bound)]
+
+#Yinelenen (Tekrarlanan) Verileri Kaldırma
+df.drop_duplicates(inplace=True)

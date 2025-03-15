@@ -1,0 +1,29 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Modelin tahminlerini al
+y_pred = model.predict(X_test)
+
+# y_test ve y_pred'in aynı formatta olmasını sağla
+y_test = np.array(y_test)  # Pandas Series ise NumPy dizisine çevir
+y_pred = np.array(y_pred).flatten()  # TensorFlow tensörünü NumPy dizisine çevir ve düzleştir
+
+# Gerçek ve tahmin edilen değerleri ekrana yazdır
+print("Gerçek Değerler = Tahmin Edilen Değerler\n")
+for real, pred in zip(y_test, y_pred):
+    print(f"{real:.2f} = {pred:.2f}")
+
+# Grafik oluştur
+plt.figure(figsize=(8, 5))
+plt.scatter(y_test, y_pred, alpha=0.7, label="Tahminler")
+plt.xlabel("Gerçek Değer (Heating Load)")
+plt.ylabel("Tahmin Edilen Değer")
+plt.title("Gerçek vs Tahmin Edilen Değerler")
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], color='red', linestyle="--", label="Doğru Tahmin Çizgisi")
+
+# Grafik üzerine birkaç tahmini ekle (ilk 5 tahmini gösterelim)
+for i in range(min(5, len(y_test))):
+    plt.text(y_test[i], y_pred[i], f"{y_pred[i]:.2f}", fontsize=9, color="blue")
+
+plt.legend()
+plt.show()
